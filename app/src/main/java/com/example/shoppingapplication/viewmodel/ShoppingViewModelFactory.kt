@@ -1,4 +1,5 @@
 package com.example.shoppingapplication.viewmodel
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.shoppingapplication.data.local.ShoppingDao

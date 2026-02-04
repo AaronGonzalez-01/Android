@@ -1,11 +1,12 @@
 package com.example.shoppingapplication.data.local
+
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ShoppingDao {
 
-    @Query("SELECT * FROM shopping_items")
+    @Query("SELECT * FROM shopping_items ORDER BY id DESC")
     fun getAllItems(): Flow<List<ShoppingItem>>
 
     @Insert

@@ -1,4 +1,5 @@
 package com.example.shoppingapplication.viewmodel
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shoppingapplication.data.local.ShoppingDao
@@ -11,13 +12,14 @@ class ShoppingViewModel(private val dao: ShoppingDao) : ViewModel() {
 
     val items = dao.getAllItems()
         .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(5000),
-            emptyList()
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = emptyList()
         )
 
     fun addItem(name: String) = viewModelScope.launch {
-        dao.insert(ShoppingItem(name = name))
+        if (name.isBlank()) return@launch
+        dao.insert(ShoppingItem(name = name.trim()))
     }
 
     fun toggleBought(item: ShoppingItem) = viewModelScope.launch {
